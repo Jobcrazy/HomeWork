@@ -11,6 +11,6 @@ Backend source code for BCIT COMM 1800 (Group E)
     ```
     cd /your/path/to/COMM-1800-Backend/
     npm install
-    node run ./bin/www
+    node ./bin/www
     ```
 3. Launch Chrome and visit: [http://127.0.0.1:3000](http://127.0.0.1:3000)

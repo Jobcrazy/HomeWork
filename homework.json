@@ -1,0 +1,19 @@
+{
+  "apps": [
+    {
+      "name": "homework",
+      "script": "bin/www",
+      "env": {
+        "PORT": 3000,
+        "DATABASE": "homework"
+      },
+      "log_date_format": "YYYY-MM-DD HH:mm:SS",
+      "log_file": "logs/homework.log",
+      "error_file": "logs/homework-err.log",
+      "out_file": "logs/homework-out.log",
+      "pid_file": "logs/homework.pid",
+      "exec_mode": "fork_mode",
+      "watch": false
+    }
+  ]
+}

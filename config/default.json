@@ -1,0 +1,15 @@
+{
+	"homework": {
+		"db": {
+			"mysql": {
+				"host": "localhost",
+				"user": "homework",
+				"password": "comm1800",
+				"port": "3306",
+				"database": "homework_database",
+				"max_connections": 5,
+				"multipleStatements" : true
+			}
+		}
+	}
+}

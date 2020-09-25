@@ -3,6 +3,9 @@
     {
       "name": "homework",
       "script": "bin/www",
+      "watch": true,
+      "watch_delay": 1000,
+      "ignore_watch": ["public", "database", "logs", "node_modules"],
       "env": {
         "PORT": 3000,
         "DATABASE": "homework"
@@ -13,7 +16,6 @@
       "out_file": "logs/homework-out.log",
       "pid_file": "logs/homework.pid",
       "exec_mode": "fork_mode",
-      "watch": false
     }
   ]
 }

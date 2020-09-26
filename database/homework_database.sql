@@ -11,7 +11,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `hw_user` (
   `id` int(10) UNSIGNED NOT NULL COMMENT 'User ID',
-  `gid` bigint(20) UNSIGNED NOT NULL COMMENT 'Google ID',
+  `gid` varchar(28) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Google ID',
   `fname` varchar(80) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Full Name',
   `gname` varchar(80) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Given Name',
   `xname` varchar(80) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Family Name',
@@ -23,7 +23,7 @@ CREATE TABLE `hw_user` (
 
 ALTER TABLE `hw_user`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `gid` (`gid`),
+  ADD UNIQUE KEY `gid` (`gid`),
   ADD KEY `email` (`email`);
 
 

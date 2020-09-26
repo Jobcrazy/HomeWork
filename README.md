@@ -36,3 +36,4 @@ Backend source code for BCIT COMM 1800 (Group E)
 | ---- |---- |
 | code  | 0: success |
 | msg  | Error Message |
+| token  | Use this ***token*** to communicate with server |

@@ -14,3 +14,25 @@ Backend source code for BCIT COMM 1800 (Group E)
     node ./bin/www
     ```
 3. Launch Chrome and visit: [http://127.0.0.1:3000](http://127.0.0.1:3000)
+
+## REST API
+### 1. Login with Google ID
+* **URI**: /user/login
+
+* **Method**: POST
+
+| Name | Description |
+| ---- |---- |
+| gid  | Google ID |
+| fname  | Full Name |
+| gname  | Given Name |
+| xname  | Family Name |
+| head  | Head Image URI |
+| email | Email |
+
+* **Return Value**
+
+| Name | Description |
+| ---- |---- |
+| code  | 0: success |
+| msg  | Error Message |

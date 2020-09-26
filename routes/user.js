@@ -3,18 +3,12 @@ var crypto = require('crypto');
 var formidable = require('formidable');
 var error_code = require('../common/error_code');
 var QueryMySQL = require('../common/database').QueryMySQL;
+var Utils = require('../common/utils');
+var Access = require('../common/access');
 
 var router = express.Router();
 
 const token_key = "mY7bZ8GKN6usrx36";
-
-function SendErrJson(res, err) {
-    var result = {
-        code: err ? err.code : error_code.error_unknown,
-        msg: err ? err.message : "Unknown Error"
-    };
-    res.send(JSON.stringify(result));
-}
 
 router.post('/login', function (req, res, next) {
     var sql = 'SELECT token from hw_user where gid = ?';
@@ -24,7 +18,7 @@ router.post('/login', function (req, res, next) {
         .then(
             function (result) {
                 var token = null;
-                if (0 == result.length) {
+                if (0 === result.length) {
                     //User does not exists, generate token add to database
                     token = crypto.createHash('md5')
                         .update(req.body.gid + token_key).digest("hex")
@@ -36,12 +30,12 @@ router.post('/login', function (req, res, next) {
 
                     return QueryMySQL(sql, params)
                         .then(function (result) {
-                        var ret_obj = {
-                            code: error_code.error_success,
-                            token: token
-                        }
-                        res.send(JSON.stringify(ret_obj))
-                    });
+                            var ret_obj = {
+                                code: error_code.error_success,
+                                token: token
+                            }
+                            res.send(JSON.stringify(ret_obj))
+                        });
                 } else {
                     //User exists
                     token = result[0].token;
@@ -54,8 +48,34 @@ router.post('/login', function (req, res, next) {
             })
         .catch(
             function (err) {
-                return SendErrJson(res, err);
+                return Utils.SendErrJson(res, err);
             })
 });
+
+router.post("/info", function (req, res, next) {
+    Access.checkUser(req.body.gid, req.body.token)
+        .then(
+            function (result) {
+                var sql = 'SELECT id, fname, gname, xname, head from hw_user where gid = ?';
+                var params = [req.body.gid];
+
+                return QueryMySQL(sql, params);
+            }
+        )
+        .then(
+            function (result) {
+                var ret_obj = {
+                    code: error_code.error_success,
+                    data: result
+                }
+                res.send(JSON.stringify(ret_obj))
+            }
+        )
+        .catch(
+            function (err) {
+                Utils.SendErrJson(res, err)
+            }
+        )
+})
 
 module.exports = router;

@@ -1,5 +1,6 @@
 var fs = require("fs");
 var path = require('path');
+var error_code = require('./error_code');
 
 var Utils = {
     //Format DateTime String
@@ -52,6 +53,13 @@ var Utils = {
             });
         }
         return true;
+    },
+    "SendErrJson": function (res, err) {
+        var result = {
+            code: err.code ? err.code : error_code.error_unknown,
+            msg: err.message ? err.message : "Unknown Error"
+        };
+        res.send(JSON.stringify(result));
     }
 };
 

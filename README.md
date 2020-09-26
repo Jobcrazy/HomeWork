@@ -37,3 +37,38 @@ Backend source code for BCIT COMM 1800 (Group E)
 | code  | 0: success |
 | msg  | Error Message |
 | token  | Use ***Google ID*** and ***token*** to communicate with our server |
+
+### 2. Get User Information
+* **URI**: /user/info
+
+* **Method**: POST
+
+| Name | Description |
+| ---- |---- |
+| gid  | ***Google ID*** |
+| token  | token got from login API |
+
+* **Return Value**
+```
+{
+    "code": 0,
+    "data": [
+        {
+            "id": 1,
+            "fname": "刘航",
+            "gname": "航",
+            "xname": "刘",
+            "head": "https://lh5.googleusercontent.com/-WmSZDdMVzsg/AAAAAAAAAAI/AAAAAAAAAAA/AMZuucmhRt5YTKrH8CXq2eFAEeFcnis2JA/s96-c/photo.jpg"
+        }
+    ]
+}
+```
+| Name | Description |
+| ---- |---- |
+| code  | 0: success |
+| data  | See description below |
+| id  | User ID |
+| fname  | Full Name |
+| gname  | Given Name |
+| xname  | Family Name |
+| head  | Head Image URI |

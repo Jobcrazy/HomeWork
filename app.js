@@ -6,6 +6,7 @@ var session = require('express-session');
 var database = require('./common/database');
 
 var indexRouter = require('./routes/index');
+var userRouter = require('./routes/user');
 
 var app = express();
 
@@ -29,5 +30,6 @@ app.all('*', function (req, res, next) {
 });
 
 app.use('/', indexRouter);
+app.use('/user', userRouter);
 
 module.exports = app;

@@ -4,7 +4,7 @@
 			"mysql": {
 				"host": "localhost",
 				"user": "homework",
-				"password": "comm1800",
+				"password": "jIPEyvTVBGPu7vfA",
 				"port": "3306",
 				"database": "homework_database",
 				"max_connections": 5,

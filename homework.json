@@ -15,7 +15,7 @@
       "error_file": "logs/homework-err.log",
       "out_file": "logs/homework-out.log",
       "pid_file": "logs/homework.pid",
-      "exec_mode": "fork_mode",
+      "exec_mode": "fork_mode"
     }
   ]
 }

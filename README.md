@@ -23,7 +23,7 @@ Backend source code for BCIT COMM 1800 (Group E)
 
 | Name | Description |
 | ---- |---- |
-| gid  | Google ID |
+| gid  | ***Google ID*** |
 | fname  | Full Name |
 | gname  | Given Name |
 | xname  | Family Name |
@@ -36,4 +36,4 @@ Backend source code for BCIT COMM 1800 (Group E)
 | ---- |---- |
 | code  | 0: success |
 | msg  | Error Message |
-| token  | Use this ***token*** to communicate with server |
+| token  | Use ***Google ID*** and ***token*** to communicate with our server |

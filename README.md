@@ -121,6 +121,30 @@ Backend source code for BCIT COMM 1800 (Group E)
 | Name | Description |
 | ---- |---- |
 | courseid  | Official Course ID |
+| page  | Page Number |
+| limit | Items Per Page |
+
+* **Return Value**
+
+| Name | Description |
+| ---- |---- |
+| code  | 0: success |
+| msg  | Error Message |
+| id  | Course Index in database |
+| courseid  | Official Course ID |
+| term  | Term |
+| instructor  | Instructor's Name |
+| class  | Class, Set or Group |
+
+### 6. List Course
+* **URI**: /course/list
+
+* **Method**: POST
+
+| Name | Description |
+| ---- |---- |
+| page  | Page Number |
+| limit | Items Per Page |
 
 * **Return Value**
 

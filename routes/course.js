@@ -67,8 +67,39 @@ router.post("/search", function (req, res, next) {
     //Strip all space first
     innercourseid = req.body.couseid.replace(/\s+/g, "");
 
-    var sql = 'SELECT id, courseid, term, instructor, class FROM hw_course WHERE innercourseid = ?';
-    var params = [innercourseid];
+    var CurrentPage = req.body.page ? parseInt(req.body.page) : 1;
+    var NumbersPerPage = req.body.limit ? parseInt(req.body.limit) : 20;
+    var Start = CurrentPage * NumbersPerPage - NumbersPerPage;
+
+    var sql = 'SELECT id, courseid, term, instructor, class FROM hw_course ' +
+        'WHERE innercourseid = ? ORDER BY id desc limit ?,?';
+    var params = [innercourseid, Start, NumbersPerPage];
+
+    QueryMySQL(sql, params)
+        .then(
+            function (result) {
+                var ret_obj = {
+                    code: error_code.error_success,
+                    data: result
+                }
+                res.send(JSON.stringify(ret_obj))
+            }
+        )
+        .catch(
+            function (err) {
+                Utils.SendErrJson(res, err)
+            }
+        )
+})
+
+router.post("/list", function (req, res, next) {
+    var CurrentPage = req.body.page ? parseInt(req.body.page) : 1;
+    var NumbersPerPage = req.body.limit ? parseInt(req.body.limit) : 20;
+    var Start = CurrentPage * NumbersPerPage - NumbersPerPage;
+
+    var sql = 'SELECT id, courseid, term, instructor, class FROM hw_course ' +
+        'ORDER BY id desc limit ?,?';
+    var params = [Start, NumbersPerPage];
 
     QueryMySQL(sql, params)
         .then(

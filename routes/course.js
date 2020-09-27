@@ -161,4 +161,32 @@ router.post("/follow", function (req, res, next) {
         )
 })
 
+router.post("/unfollow", function (req, res, next) {
+    Access.checkUser(req.body.uid, req.body.token)
+        .then(
+            function (result) {
+                //check whether vid exists
+                var sql = 'DELETE FROM hw_follow WHERE cid = ? AND uid = ?';
+                var params = [req.body.cid, req.body.uid];
+
+                return QueryMySQL(sql, params);
+            }
+        )
+        .then(
+            function (result) {
+                if (result) {
+                    var ret_obj = {
+                        code: error_code.error_success
+                    }
+                    res.send(JSON.stringify(ret_obj))
+                }
+            }
+        )
+        .catch(
+            function (err) {
+                Utils.SendErrJson(res, err)
+            }
+        )
+})
+
 module.exports = router;

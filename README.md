@@ -247,3 +247,21 @@ Backend source code for BCIT COMM 1800 (Group E)
 | ---- |---- |
 | code  | 0: success |
 | msg  | Error Message |
+
+### 11. UnFollow a Course
+* **URI**: /course/follow
+
+* **Method**: POST
+
+| Name | Description |
+| ---- |---- |
+| uid  | User ID |
+| token | Token |
+| cid | Course Index ID |
+
+* **Return Value**
+
+| Name | Description |
+| ---- |---- |
+| code  | 0: success |
+| msg  | Error Message |

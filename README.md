@@ -196,3 +196,36 @@ Backend source code for BCIT COMM 1800 (Group E)
 | ---- |---- |
 | code  | 0: success |
 | msg  | Error Message |
+
+### 8. Get Volunteers of a Course
+* **URI**: /volunteer/get
+
+* **Method**: POST
+
+| Name | Description |
+| ---- |---- |
+| uid  | User ID |
+| token | Token |
+| cid | Course Index ID |
+
+* **Return Value**
+```
+{
+    "code": 0,
+    "data": [
+        {
+            "uid": 1
+        },
+        {
+            "uid": 2
+        }
+    ]
+}
+```
+
+| Name | Description |
+| ---- |---- |
+| code  | 0: success |
+| msg  | Error Message |
+| data  | See Below |
+| uid  | Volunteer's User ID |

@@ -229,3 +229,21 @@ Backend source code for BCIT COMM 1800 (Group E)
 | msg  | Error Message |
 | data  | See Below |
 | uid  | Volunteer's User ID |
+
+### 10. Follow a Course
+* **URI**: /course/follow
+
+* **Method**: POST
+
+| Name | Description |
+| ---- |---- |
+| uid  | User ID |
+| token | Token |
+| cid | Course Index ID |
+
+* **Return Value**
+
+| Name | Description |
+| ---- |---- |
+| code  | 0: success |
+| msg  | Error Message |

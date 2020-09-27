@@ -117,4 +117,48 @@ router.post("/list", function (req, res, next) {
         )
 })
 
+router.post("/follow", function (req, res, next) {
+    Access.checkUser(req.body.uid, req.body.token)
+        .then(
+            function (result) {
+                //check whether vid exists
+                var sql = 'SELECT id FROM hw_follow WHERE cid = ? AND uid = ?';
+                var params = [req.body.cid, req.body.uid];
+
+                return QueryMySQL(sql, params);
+            }
+        )
+        .then(
+            function (result) {
+                if (result.length) {
+                    //Exists
+                    var err = {
+                        message: "Already Followed."
+                    };
+                    return Utils.SendErrJson(res, err);
+                } else {
+                    var sql = 'INSERT INTO hw_follow(`cid`, `uid`) VALUES(?, ?)';
+                    var params = [req.body.cid, req.body.uid];
+                    return QueryMySQL(sql, params);
+                }
+            }
+        )
+        .then(
+            function (result) {
+                if (result) {
+                    var ret_obj = {
+                        code: error_code.error_success,
+                        id: result.insertId
+                    }
+                    res.send(JSON.stringify(ret_obj))
+                }
+            }
+        )
+        .catch(
+            function (err) {
+                Utils.SendErrJson(res, err)
+            }
+        )
+})
+
 module.exports = router;

@@ -197,7 +197,7 @@ Backend source code for BCIT COMM 1800 (Group E)
 | code  | 0: success |
 | msg  | Error Message |
 
-### 8. Get Volunteers of a Course
+### 9. Get Volunteers of a Course
 * **URI**: /volunteer/get
 
 * **Method**: POST

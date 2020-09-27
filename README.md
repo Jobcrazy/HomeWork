@@ -36,7 +36,8 @@ Backend source code for BCIT COMM 1800 (Group E)
 | ---- |---- |
 | code  | 0: success |
 | msg  | Error Message |
-| token  | Use ***Google ID*** and ***token*** to communicate with our server |
+| uid  | User ID |
+| token  | Use ***uid*** and ***token*** to communicate with our server |
 
 ### 2. Get User Information
 * **URI**: /user/info
@@ -45,7 +46,7 @@ Backend source code for BCIT COMM 1800 (Group E)
 
 | Name | Description |
 | ---- |---- |
-| gid  | ***Google ID*** |
+| uid  | User ID |
 | token  | token got from login API |
 
 * **Return Value**
@@ -80,7 +81,7 @@ Backend source code for BCIT COMM 1800 (Group E)
 
 | Name | Description |
 | ---- |---- |
-| gid  | Google ID |
+| uid  | User ID |
 | token  | token got from login API |
 | courseid  | Official Course ID. e.g.: "COMM 1116" |
 | term  | Term. e.g.: "Fall 2020" |
@@ -102,7 +103,7 @@ Backend source code for BCIT COMM 1800 (Group E)
 
 | Name | Description |
 | ---- |---- |
-| gid  | Google ID |
+| uid  | User ID |
 | token  | token got from login API |
 | cid  | Course index in database. e.g.: 4 |
 
@@ -157,3 +158,41 @@ Backend source code for BCIT COMM 1800 (Group E)
 | term  | Term |
 | instructor  | Instructor's Name |
 | class  | Class, Set or Group |
+
+### 7. Add Volunteer for Course
+* **URI**: /volunteer/add
+
+* **Method**: POST
+
+| Name | Description |
+| ---- |---- |
+| uid  | User ID |
+| token | Token |
+| cid | Course Index ID |
+| vid | Volunteer User ID |
+
+* **Return Value**
+
+| Name | Description |
+| ---- |---- |
+| code  | 0: success |
+| msg  | Error Message |
+
+### 8. Delete Volunteer for Course
+* **URI**: /volunteer/del
+
+* **Method**: POST
+
+| Name | Description |
+| ---- |---- |
+| uid  | User ID |
+| token | Token |
+| cid | Course Index ID |
+| vid | Volunteer User ID |
+
+* **Return Value**
+
+| Name | Description |
+| ---- |---- |
+| code  | 0: success |
+| msg  | Error Message |

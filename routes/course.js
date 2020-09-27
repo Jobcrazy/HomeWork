@@ -1,14 +1,13 @@
 var express = require('express');
 var router = express.Router();
 var crypto = require('crypto');
-var formidable = require('formidable');
 var error_code = require('../common/error_code');
 var QueryMySQL = require('../common/database').QueryMySQL;
 var Utils = require('../common/utils');
 var Access = require('../common/access');
 
 router.post("/add", function (req, res, next) {
-    Access.checkAdmin(req.body.gid, req.body.token)
+    Access.checkAdmin(req.body.uid, req.body.token)
         .then(
             function (result) {
                 //Strip all space first
@@ -39,7 +38,7 @@ router.post("/add", function (req, res, next) {
 })
 
 router.post("/del", function (req, res, next) {
-    Access.checkAdmin(req.body.gid, req.body.token)
+    Access.checkAdmin(req.body.uid, req.body.token)
         .then(
             function (result) {
                 var sql = 'DELETE FROM hw_course WHERE id = ?';

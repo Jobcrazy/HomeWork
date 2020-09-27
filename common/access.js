@@ -1,10 +1,10 @@
 var QueryMySQL = require('./database').QueryMySQL;
 
 var Utils = {
-    checkUser: function (gid, token) {
+    checkUser: function (id, token) {
         return new Promise(function (resolve, reject) {
-            var sql = 'SELECT id FROM hw_user WHERE gid = ? AND token = ?';
-            var params = [gid, token];
+            var sql = 'SELECT id FROM hw_user WHERE id = ? AND token = ?';
+            var params = [id, token];
 
             QueryMySQL(sql, params)
                 .then(
@@ -25,17 +25,17 @@ var Utils = {
                 )
         })
     },
-    checkAdmin: function (gid, token) {
+    checkAdmin: function (id, token) {
         return new Promise(function (resolve, reject) {
-            var sql = 'SELECT id FROM hw_user WHERE gid = ? AND token = ?';
-            var params = [gid, token];
+            var sql = 'SELECT id FROM hw_user WHERE id = ? AND token = ?';
+            var params = [id, token];
 
             QueryMySQL(sql, params)
                 .then(
                     function (result) {
                         if (result.length){
                             var sql = `SELECT id FROM hw_admin WHERE uid = ?`;
-                            var params = [result[0].id];
+                            var params = [id];
                             QueryMySQL(sql, params)
                                 .then(
                                     function (result) {

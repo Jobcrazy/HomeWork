@@ -14,9 +14,9 @@ router.post("/add", function (req, res, next) {
                 innercourseid = req.body.couseid.replace(/\s+/g, "");
 
                 var sql = 'INSERT INTO hw_course(`innercourseid`, `courseid`, ' +
-                    '`term`, `instructor`, `class`) VALUES(?, ?, ?, ?, ?)';
+                    '`term`, `instructor`, `class`, `logo`) VALUES(?, ?, ?, ?, ?, ?)';
                 var params = [innercourseid, req.body.couseid, req.body.term,
-                    req.body.instructor, req.body.class];
+                    req.body.instructor, req.body.class, req.body.logo];
 
                 return QueryMySQL(sql, params);
             }

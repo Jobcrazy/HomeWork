@@ -87,6 +87,7 @@ Backend source code for BCIT COMM 1800 (Group E)
 | term  | Term. e.g.: "Fall 2020" |
 | instructor  | Instructor's Name |
 | class  | Class, Set or Group. e.g.: "SET E" |
+| logo  | Logo for class, could be instructor's profile picture |
 
 * **Return Value**
 

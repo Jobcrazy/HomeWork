@@ -25,7 +25,8 @@ router.post("/add", function (req, res, next) {
         .then(
             function (result) {
                 var ret_obj = {
-                    code: error_code.error_success
+                    code: error_code.error_success,
+                    cid: result.insertId
                 }
                 res.send(JSON.stringify(ret_obj))
             }

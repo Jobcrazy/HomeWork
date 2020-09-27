@@ -92,6 +92,7 @@ Backend source code for BCIT COMM 1800 (Group E)
 | Name | Description |
 | ---- |---- |
 | code  | 0: success |
+| cid  | Course index in database  |
 | msg  | Error Message |
 
 ### 4. Delete a Course

@@ -84,7 +84,7 @@ Backend source code for BCIT COMM 1800 (Group E)
 | token  | token got from login API |
 | courseid  | Official Course ID. e.g.: "COMM 1116" |
 | term  | Term. e.g.: "Fall 2020" |
-| instructor  | Instructor Name |
+| instructor  | Instructor's Name |
 | class  | Class, Set or Group. e.g.: "SET E" |
 
 * **Return Value**
@@ -112,3 +112,24 @@ Backend source code for BCIT COMM 1800 (Group E)
 | ---- |---- |
 | code  | 0: success |
 | msg  | Error Message |
+
+### 5. Search a Course by Course ID
+* **URI**: /course/search
+
+* **Method**: POST
+
+| Name | Description |
+| ---- |---- |
+| courseid  | Official Course ID |
+
+* **Return Value**
+
+| Name | Description |
+| ---- |---- |
+| code  | 0: success |
+| msg  | Error Message |
+| id  | Course Index in database |
+| courseid  | Official Course ID |
+| term  | Term |
+| instructor  | Instructor's Name |
+| class  | Class, Set or Group |

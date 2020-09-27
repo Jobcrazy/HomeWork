@@ -72,3 +72,24 @@ Backend source code for BCIT COMM 1800 (Group E)
 | gname  | Given Name |
 | xname  | Family Name |
 | head  | Head Image URI |
+
+### 3. Add a Course
+* **URI**: /course/add
+
+* **Method**: POST
+
+| Name | Description |
+| ---- |---- |
+| gid  | ***Google ID*** |
+| token  | token got from login API |
+| courseid  | Official Course ID. e.g.: "COMM 1116" |
+| term  | Term. e.g.: "Fall 2020" |
+| instructor  | Instructor Name |
+| class  | Class, Set or Group. e.g.: "SET E" |
+
+* **Return Value**
+
+| Name | Description |
+| ---- |---- |
+| code  | 0: success |
+| msg  | Error Message |

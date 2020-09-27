@@ -37,4 +37,29 @@ router.post("/add", function (req, res, next) {
         )
 })
 
+router.post("/del", function (req, res, next) {
+    Access.checkAdmin(req.body.gid, req.body.token)
+        .then(
+            function (result) {
+                var sql = 'DELETE FROM hw_course WHERE id = ?';
+                var params = [req.body.cid];
+
+                return QueryMySQL(sql, params);
+            }
+        )
+        .then(
+            function (result) {
+                var ret_obj = {
+                    code: error_code.error_success
+                }
+                res.send(JSON.stringify(ret_obj))
+            }
+        )
+        .catch(
+            function (err) {
+                Utils.SendErrJson(res, err)
+            }
+        )
+})
+
 module.exports = router;

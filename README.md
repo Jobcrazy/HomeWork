@@ -23,7 +23,7 @@ Backend source code for BCIT COMM 1800 (Group E)
 
 | Name | Description |
 | ---- |---- |
-| gid  | ***Google ID*** |
+| gid  | Google ID |
 | fname  | Full Name |
 | gname  | Given Name |
 | xname  | Family Name |
@@ -80,12 +80,30 @@ Backend source code for BCIT COMM 1800 (Group E)
 
 | Name | Description |
 | ---- |---- |
-| gid  | ***Google ID*** |
+| gid  | Google ID |
 | token  | token got from login API |
 | courseid  | Official Course ID. e.g.: "COMM 1116" |
 | term  | Term. e.g.: "Fall 2020" |
 | instructor  | Instructor Name |
 | class  | Class, Set or Group. e.g.: "SET E" |
+
+* **Return Value**
+
+| Name | Description |
+| ---- |---- |
+| code  | 0: success |
+| msg  | Error Message |
+
+### 4. Delete a Course
+* **URI**: /course/del
+
+* **Method**: POST
+
+| Name | Description |
+| ---- |---- |
+| gid  | Google ID |
+| token  | token got from login API |
+| cid  | Course index in database. e.g.: 4 |
 
 * **Return Value**
 

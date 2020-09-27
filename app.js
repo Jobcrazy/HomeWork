@@ -7,6 +7,7 @@ var database = require('./common/database');
 
 var indexRouter = require('./routes/index');
 var userRouter = require('./routes/user');
+var courseRouter = require('./routes/course');
 
 var app = express();
 
@@ -31,5 +32,6 @@ app.all('*', function (req, res, next) {
 
 app.use('/', indexRouter);
 app.use('/user', userRouter);
+app.use('/course', courseRouter);
 
 module.exports = app;

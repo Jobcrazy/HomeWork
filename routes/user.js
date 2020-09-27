@@ -1,12 +1,11 @@
 var express = require('express');
+var router = express.Router();
 var crypto = require('crypto');
 var formidable = require('formidable');
 var error_code = require('../common/error_code');
 var QueryMySQL = require('../common/database').QueryMySQL;
 var Utils = require('../common/utils');
 var Access = require('../common/access');
-
-var router = express.Router();
 
 const token_key = "mY7bZ8GKN6usrx36";
 

@@ -186,4 +186,88 @@ router.post("/ongoing", function (req, res, next) {
         )
 })
 
+router.post("/finished", function (req, res, next) {
+    Access.checkUser(req.body.uid, req.body.token)
+        .then(
+            function (result) {
+                var CurrentPage = req.body.page ? parseInt(req.body.page) : 1;
+                var NumbersPerPage = req.body.limit ? parseInt(req.body.limit) : 20;
+                var Start = CurrentPage * NumbersPerPage - NumbersPerPage;
+                var current_date_time = Utils.crtTimeFtt();
+                var sql = 'SELECT hw_homework.id, hw_homework.cid, hw_homework.title, \n' +
+                    'hw_homework.description, hw_homework.due, hw_course.courseid, \n' +
+                    'hw_course.term, hw_course.instructor, hw_course.instructor,\n' +
+                    'hw_course.class, hw_course.logo \n' +
+                    'FROM hw_course JOIN ( \n' +
+                    '    SELECT id, cid, title, description, due FROM hw_homework \n' +
+                    '    WHERE cid IN (\n' +
+                    '        SELECT cid FROM hw_done \n' +
+                    '        WHERE hw_done.uid = ?\n' +
+                    '    ) \n' +
+                    ') as hw_homework ON \n' +
+                    'hw_homework.cid = hw_course.id \n' +
+                    'ORDER BY id desc limit ?,?';
+                var params = [req.body.uid, Start, NumbersPerPage];
+
+                return QueryMySQL(sql, params);
+            }
+        )
+        .then(
+            function (result) {
+                var ret_obj = {
+                    code: error_code.error_success,
+                    data:result
+                }
+                return res.send(JSON.stringify(ret_obj));
+            }
+        )
+        .catch(
+            function (err) {
+                Utils.SendErrJson(res, err);
+            }
+        )
+})
+
+router.post("/overdue", function (req, res, next) {
+    Access.checkUser(req.body.uid, req.body.token)
+        .then(
+            function (result) {
+                var CurrentPage = req.body.page ? parseInt(req.body.page) : 1;
+                var NumbersPerPage = req.body.limit ? parseInt(req.body.limit) : 20;
+                var Start = CurrentPage * NumbersPerPage - NumbersPerPage;
+                var current_date_time = Utils.crtTimeFtt();
+                var sql = 'SELECT hw_homework.id, hw_homework.cid, hw_homework.title, \n' +
+                    'hw_homework.description, hw_homework.due, hw_course.courseid, \n' +
+                    'hw_course.term, hw_course.instructor, hw_course.instructor,\n' +
+                    'hw_course.class, hw_course.logo \n' +
+                    'FROM hw_course JOIN ( \n' +
+                    '    SELECT id, cid, title, description, due FROM hw_homework \n' +
+                    '    WHERE cid NOT IN (\n' +
+                    '        SELECT cid FROM hw_done \n' +
+                    '        WHERE hw_done.uid = ?\n' +
+                    '    ) \n' +
+                    ') as hw_homework ON \n' +
+                    'hw_homework.cid = hw_course.id \n' +
+                    'AND hw_homework.due <= ? ORDER BY id desc limit ?,?';
+                var params = [req.body.uid, current_date_time, Start, NumbersPerPage];
+
+                return QueryMySQL(sql, params);
+            }
+        )
+        .then(
+            function (result) {
+                var ret_obj = {
+                    code: error_code.error_success,
+                    data:result
+                }
+                return res.send(JSON.stringify(ret_obj));
+            }
+        )
+        .catch(
+            function (err) {
+                Utils.SendErrJson(res, err);
+            }
+        )
+})
+
 module.exports = router;

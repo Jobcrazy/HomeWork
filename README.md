@@ -18,7 +18,6 @@ Backend source code for BCIT COMM 1800 (Group E)
 ## REST API
 ### 1. Login with Google ID
 * **URI**: /user/login
-
 * **Method**: POST
 
 | Name | Description |
@@ -41,7 +40,6 @@ Backend source code for BCIT COMM 1800 (Group E)
 
 ### 2. Get User Information
 * **URI**: /user/info
-
 * **Method**: POST
 
 | Name | Description |
@@ -76,7 +74,6 @@ Backend source code for BCIT COMM 1800 (Group E)
 
 ### 3. Add a Course
 * **URI**: /course/add
-
 * **Method**: POST
 
 | Name | Description |
@@ -99,7 +96,6 @@ Backend source code for BCIT COMM 1800 (Group E)
 
 ### 4. Delete a Course
 * **URI**: /course/del
-
 * **Method**: POST
 
 | Name | Description |
@@ -117,7 +113,6 @@ Backend source code for BCIT COMM 1800 (Group E)
 
 ### 5. Search a Course by Course ID
 * **URI**: /course/search
-
 * **Method**: POST
 
 | Name | Description |
@@ -140,7 +135,6 @@ Backend source code for BCIT COMM 1800 (Group E)
 
 ### 6. List Course
 * **URI**: /course/list
-
 * **Method**: POST
 
 | Name | Description |
@@ -162,7 +156,6 @@ Backend source code for BCIT COMM 1800 (Group E)
 
 ### 7. Add Volunteer for Course
 * **URI**: /volunteer/add
-
 * **Method**: POST
 
 | Name | Description |
@@ -181,7 +174,6 @@ Backend source code for BCIT COMM 1800 (Group E)
 
 ### 8. Delete Volunteer for Course
 * **URI**: /volunteer/del
-
 * **Method**: POST
 
 | Name | Description |
@@ -200,7 +192,6 @@ Backend source code for BCIT COMM 1800 (Group E)
 
 ### 9. Get Volunteers of a Course
 * **URI**: /volunteer/get
-
 * **Method**: POST
 
 | Name | Description |
@@ -233,7 +224,6 @@ Backend source code for BCIT COMM 1800 (Group E)
 
 ### 10. Follow a Course
 * **URI**: /course/follow
-
 * **Method**: POST
 
 | Name | Description |
@@ -251,7 +241,6 @@ Backend source code for BCIT COMM 1800 (Group E)
 
 ### 11. UnFollow a Course
 * **URI**: /course/follow
-
 * **Method**: POST
 
 | Name | Description |
@@ -269,7 +258,6 @@ Backend source code for BCIT COMM 1800 (Group E)
 
 ### 12. Add Homework
 * **URI**: /homework/add
-
 * **Method**: POST
 
 | Name | Description |
@@ -291,7 +279,6 @@ Backend source code for BCIT COMM 1800 (Group E)
 
 ### 13. Del Homework
 * **URI**: /homework/del
-
 * **Method**: POST
 
 | Name | Description |
@@ -310,7 +297,6 @@ Backend source code for BCIT COMM 1800 (Group E)
 
 ### 14. Mark Homework as Done
 * **URI**: /homework/done
-
 * **Method**: POST
 
 | Name | Description |
@@ -329,7 +315,6 @@ Backend source code for BCIT COMM 1800 (Group E)
 
 ### 15. Mark Homework as Unfinished
 * **URI**: /homework/unfinished
-
 * **Method**: POST
 
 | Name | Description |
@@ -348,13 +333,108 @@ Backend source code for BCIT COMM 1800 (Group E)
 
 ### 16. List Ongoing Homework
 * **URI**: /homework/ongoing
-
 * **Method**: POST
 
 | Name | Description |
 | ---- |---- |
 | uid  | User ID |
 | token | Token |
+| page  | Page Number |
+| limit | Items Per Page |
+
+* **Return Value**
+```
+{
+    "code": 0,
+    "data": [
+        {
+            "id": 2,
+            "cid": 3,
+            "title": "Read a Book",
+            "description": "Read Harry Potter 1-7",
+            "due": "2020-10-31T06:59:00.000Z",
+            "courseid": "COMM 1116",
+            "term": "2020 Fall",
+            "instructor": "Sam Lee",
+            "class": "E",
+            "logo": null
+        }
+    ]
+}
+```
+| Name | Description |
+| ---- |---- |
+| code  | 0: success |
+| msg  | Error Message |
+| data | See Below |
+| id | Homework ID |
+| cid | Course Index ID |
+| title | Homework Title |
+| description | Homework Detailed Description |
+| due | Homework Due, could be Null |
+| courseid | Official Course ID |
+| term | Term |
+| instructor | Instructor's Name |
+| class | Class, Group or SET |
+| logo | Course Logo Image, Could Be Null |
+
+### 17. List Finished Homework
+* **URI**: /homework/finished
+* **Method**: POST
+
+| Name | Description |
+| ---- |---- |
+| uid  | User ID |
+| token | Token |
+| page  | Page Number |
+| limit | Items Per Page |
+
+* **Return Value**
+```
+{
+    "code": 0,
+    "data": [
+        {
+            "id": 2,
+            "cid": 3,
+            "title": "Read a Book",
+            "description": "Read Harry Potter 1-7",
+            "due": "2020-10-31T06:59:00.000Z",
+            "courseid": "COMM 1116",
+            "term": "2020 Fall",
+            "instructor": "Sam Lee",
+            "class": "E",
+            "logo": null
+        }
+    ]
+}
+```
+| Name | Description |
+| ---- |---- |
+| code  | 0: success |
+| msg  | Error Message |
+| data | See Below |
+| id | Homework ID |
+| cid | Course Index ID |
+| title | Homework Title |
+| description | Homework Detailed Description |
+| due | Homework Due, could be Null |
+| courseid | Official Course ID |
+| term | Term |
+| instructor | Instructor's Name |
+| class | Class, Group or SET |
+| logo | Course Logo Image, Could Be Null |
+
+### 18. List Overdue Homework
+* **URI**: /homework/overdue
+* **Method**: POST
+
+| Name | Description |
+| ---- |---- |
+| uid  | User ID |
+| token | Token |
+| page  | Page Number |
+| limit | Items Per Page |
 
 * **Return Value**
 ```

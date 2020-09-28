@@ -34,6 +34,34 @@ router.post("/add", function (req, res, next) {
         )
 })
 
+router.post("/update", function (req, res, next) {
+    Access.checkVolunteer(req.body.cid, req.body.uid, req.body.token)
+        .then(
+            function (result) {
+                var sql = 'UPDATE hw_homework SET cid=?, title=?, ' +
+                    'description=?, due=? WHERE id=?';
+                var params = [req.body.cid, req.body.title, req.body.description,
+                    req.body.due, req.body.kid];
+
+                return QueryMySQL(sql, params);
+            }
+        )
+        .then(
+            function (result) {
+                var ret_obj = {
+                    code: error_code.error_success,
+                    id: result.insertId
+                }
+                res.send(JSON.stringify(ret_obj));
+            }
+        )
+        .catch(
+            function (err) {
+                Utils.SendErrJson(res, err);
+            }
+        )
+})
+
 router.post("/del", function (req, res, next) {
     Access.checkVolunteer(req.body.cid, req.body.uid, req.body.token)
         .then(

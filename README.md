@@ -493,3 +493,24 @@ Backend source code for BCIT COMM 1800 (Group E)
 | ---- |---- |
 | code  | 0: success |
 | msg  | Error Message |
+
+### 20. Update Homework
+* **URI**: /homework/update
+* **Method**: POST
+
+| Name | Description |
+| ---- |---- |
+| uid  | User ID |
+| token | Token |
+| kid | Homework ID |
+| cid | Course Index ID |
+| title | Homework Title |
+| description | Homework Description |
+| due | Homework Due (***NULL means no due***). e.g.: 2020-09-30 23:59:00 |
+
+* **Return Value**
+
+| Name | Description |
+| ---- |---- |
+| code  | 0: success |
+| msg  | Error Message |

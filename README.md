@@ -266,3 +266,44 @@ Backend source code for BCIT COMM 1800 (Group E)
 | ---- |---- |
 | code  | 0: success |
 | msg  | Error Message |
+
+### 12. Add Homework
+* **URI**: /homework/add
+
+* **Method**: POST
+
+| Name | Description |
+| ---- |---- |
+| uid  | User ID |
+| token | Token |
+| cid | Course Index ID |
+| title | Homework Title |
+| description | Homework Description |
+| due | Homework Due (***NULL means no due***). e.g.: 2020-09-30 23:59:00 |
+
+* **Return Value**
+
+| Name | Description |
+| ---- |---- |
+| code  | 0: success |
+| msg  | Error Message |
+| id | Homework ID |
+
+### 13. Del Homework
+* **URI**: /homework/del
+
+* **Method**: POST
+
+| Name | Description |
+| ---- |---- |
+| uid  | User ID |
+| token | Token |
+| cid | Course Index ID |
+| kid | Homework ID |
+
+* **Return Value**
+
+| Name | Description |
+| ---- |---- |
+| code  | 0: success |
+| msg  | Error Message |

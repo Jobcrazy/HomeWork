@@ -37,6 +37,38 @@ router.post("/add", function (req, res, next) {
         )
 })
 
+router.post("/update", function (req, res, next) {
+    Access.checkAdmin(req.body.uid, req.body.token)
+        .then(
+            function (result) {
+                //Strip all space first
+                innercourseid = req.body.couseid.replace(/\s+/g, "");
+
+                var sql = 'UPDATE hw_course SET innercourseid=?, courseid=?, ' +
+                    'term=?, instructor=?, class=?, logo=?' +
+                    'WHERE id=?';
+                var params = [innercourseid, req.body.couseid, req.body.term,
+                    req.body.instructor, req.body.class, req.body.logo, req.body.cid];
+
+                return QueryMySQL(sql, params);
+            }
+        )
+        .then(
+            function (result) {
+                var ret_obj = {
+                    code: error_code.error_success,
+                    cid: result.insertId
+                }
+                res.send(JSON.stringify(ret_obj))
+            }
+        )
+        .catch(
+            function (err) {
+                Utils.SendErrJson(res, err)
+            }
+        )
+})
+
 router.post("/del", function (req, res, next) {
     Access.checkAdmin(req.body.uid, req.body.token)
         .then(

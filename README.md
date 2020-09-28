@@ -471,3 +471,25 @@ Backend source code for BCIT COMM 1800 (Group E)
 | instructor | Instructor's Name |
 | class | Class, Group or SET |
 | logo | Course Logo Image, Could Be Null |
+
+### 19. Update a Course
+* **URI**: /course/add
+* **Method**: POST
+
+| Name | Description |
+| ---- |---- |
+| uid  | User ID |
+| token  | token got from login API |
+| cid | Course Index ID |
+| courseid  | Official Course ID. e.g.: "COMM 1116" |
+| term  | Term. e.g.: "Fall 2020" |
+| instructor  | Instructor's Name |
+| class  | Class, Set or Group. e.g.: "SET E" |
+| logo  | Logo for class, could be instructor's profile picture |
+
+* **Return Value**
+
+| Name | Description |
+| ---- |---- |
+| code  | 0: success |
+| msg  | Error Message |

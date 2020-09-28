@@ -345,3 +345,49 @@ Backend source code for BCIT COMM 1800 (Group E)
 | ---- |---- |
 | code  | 0: success |
 | msg  | Error Message |
+
+### 16. List Ongoing Homework
+* **URI**: /homework/ongoing
+
+* **Method**: POST
+
+| Name | Description |
+| ---- |---- |
+| uid  | User ID |
+| token | Token |
+
+* **Return Value**
+```
+{
+    "code": 0,
+    "data": [
+        {
+            "id": 2,
+            "cid": 3,
+            "title": "Read a Book",
+            "description": "Read Harry Potter 1-7",
+            "due": "2020-10-31T06:59:00.000Z",
+            "courseid": "COMM 1116",
+            "term": "2020 Fall",
+            "instructor": "Sam Lee",
+            "class": "E",
+            "logo": null
+        }
+    ]
+}
+```
+| Name | Description |
+| ---- |---- |
+| code  | 0: success |
+| msg  | Error Message |
+| data | See Below |
+| id | Homework ID |
+| cid | Course Index ID |
+| title | Homework Title |
+| description | Homework Detailed Description |
+| due | Homework Due, could be Null |
+| courseid | Official Course ID |
+| term | Term |
+| instructor | Instructor's Name |
+| class | Class, Group or SET |
+| logo | Course Logo Image, Could Be Null |

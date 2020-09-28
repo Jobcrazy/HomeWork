@@ -37,6 +37,13 @@ router.post('/login', function (req, res, next) {
                         });
                 } else {
                     //User exists
+                    var sql = 'UPDATE hw_user SET `fname` = ?, `gname` = ?, ' +
+                        '`xname` = ?, `head` =? , `email` = ? WHERE `gid` = ?';
+                    var params = [req.body.fname, req.body.gname,
+                        req.body.xname, req.body.head, req.body.email, req.body.gid];
+
+                    QueryMySQL(sql, params);
+
                     var ret_obj = {
                         code: error_code.error_success,
                         uid: result[0].id,

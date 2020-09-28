@@ -56,8 +56,7 @@ router.post("/update", function (req, res, next) {
         .then(
             function (result) {
                 var ret_obj = {
-                    code: error_code.error_success,
-                    cid: result.insertId
+                    code: error_code.error_success
                 }
                 res.send(JSON.stringify(ret_obj))
             }

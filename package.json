@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "debug": "node %NODE_DEBUG_OPTION% ./bin/www"
+    "debug": "set DBG_ENV=1 && node %NODE_DEBUG_OPTION% ./bin/www"
   },
   "dependencies": {
     "config": "^3.1.0",

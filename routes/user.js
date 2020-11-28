@@ -62,7 +62,7 @@ router.post("/info", function (req, res, next) {
     Access.checkUser(req.body.uid, req.body.token)
         .then(
             function (result) {
-                var sql = 'SELECT id, fname, gname, xname, head from hw_user where id = ?';
+                var sql = 'SELECT id, fname, gname, xname, head, email from hw_user where id = ?';
                 var params = [req.body.uid];
 
                 return QueryMySQL(sql, params);
@@ -82,6 +82,6 @@ router.post("/info", function (req, res, next) {
                 Utils.SendErrJson(res, err)
             }
         )
-})
+});
 
 module.exports = router;

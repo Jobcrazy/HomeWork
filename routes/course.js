@@ -26,7 +26,7 @@ router.post("/add", function (req, res, next) {
                 var ret_obj = {
                     code: error_code.error_success,
                     cid: result.insertId
-                }
+                };
                 res.send(JSON.stringify(ret_obj))
             }
         )
@@ -123,21 +123,37 @@ router.post("/search", function (req, res, next) {
 })
 
 router.post("/list", function (req, res, next) {
+    let uid = req.body.uid ? req.body.uid : 0;
     var CurrentPage = req.body.page ? parseInt(req.body.page) : 1;
     var NumbersPerPage = req.body.limit ? parseInt(req.body.limit) : 20;
     var Start = CurrentPage * NumbersPerPage - NumbersPerPage;
 
-    var sql = 'SELECT id, courseid, term, instructor, class FROM hw_course ' +
+    var sql = 'SELECT id, courseid, term, instructor, class, logo, name FROM hw_course ' +
         'ORDER BY id desc limit ?,?';
     var params = [Start, NumbersPerPage];
 
+    let courses = null;
     QueryMySQL(sql, params)
         .then(
             function (result) {
+                courses = result;
+
+                var sql = 'SELECT * FROM hw_follow WHERE uid = ?';
+                var params = [uid];
+
+
+                return QueryMySQL(sql, params);
+            }
+        )
+        .then(
+            function (followed) {
                 var ret_obj = {
                     code: error_code.error_success,
-                    data: result
-                }
+                    data: {
+                        courses: courses,
+                        followed: followed
+                    }
+                };
                 res.send(JSON.stringify(ret_obj))
             }
         )

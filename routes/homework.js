@@ -183,7 +183,7 @@ router.post("/ongoing", function (req, res, next) {
                 var sql = 'SELECT hw_homework.id, hw_homework.cid, hw_homework.title, \n' +
                     'hw_homework.description, hw_homework.due, hw_course.courseid, \n' +
                     'hw_course.term, hw_course.instructor, hw_course.instructor,\n' +
-                    'hw_course.class, hw_course.logo \n' +
+                    'hw_course.class, hw_course.logo, hw_course.name \n' +
                     'FROM hw_course JOIN ( \n' +
                     '    SELECT id, cid, title, description, due FROM hw_homework \n' +
                     '    WHERE cid NOT IN (\n' +
@@ -200,6 +200,11 @@ router.post("/ongoing", function (req, res, next) {
         )
         .then(
             function (result) {
+                for (let n = 0; n < result.length; ++n) {
+                    result[n].due = new Date(+result[n].due /* + 8 * 3600 * 1000 */)
+                        .toISOString().replace(/T/g, ' ')
+                        .replace(/\.[\d]{3}Z/, '')
+                }
                 var ret_obj = {
                     code: error_code.error_success,
                     data:result
@@ -225,7 +230,7 @@ router.post("/finished", function (req, res, next) {
                 var sql = 'SELECT hw_homework.id, hw_homework.cid, hw_homework.title, \n' +
                     'hw_homework.description, hw_homework.due, hw_course.courseid, \n' +
                     'hw_course.term, hw_course.instructor, hw_course.instructor,\n' +
-                    'hw_course.class, hw_course.logo \n' +
+                    'hw_course.class, hw_course.logo, hw_course.name \n' +
                     'FROM hw_course JOIN ( \n' +
                     '    SELECT id, cid, title, description, due FROM hw_homework \n' +
                     '    WHERE cid IN (\n' +
@@ -267,7 +272,7 @@ router.post("/overdue", function (req, res, next) {
                 var sql = 'SELECT hw_homework.id, hw_homework.cid, hw_homework.title, \n' +
                     'hw_homework.description, hw_homework.due, hw_course.courseid, \n' +
                     'hw_course.term, hw_course.instructor, hw_course.instructor,\n' +
-                    'hw_course.class, hw_course.logo \n' +
+                    'hw_course.class, hw_course.logo, hw_course.name \n' +
                     'FROM hw_course JOIN ( \n' +
                     '    SELECT id, cid, title, description, due FROM hw_homework \n' +
                     '    WHERE cid NOT IN (\n' +

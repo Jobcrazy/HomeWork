@@ -37,7 +37,7 @@ export default {
       console.log(profile)
       let self = this;
       self.$toast.loading({
-        message: "加载中...",
+        message: "Loading...",
         forbidClick: true,
       });
       this.$axios({

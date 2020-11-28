@@ -2,7 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/components/Login'
 const User_Main = () => import('@/components/user/Main');
-const User_Main_Tasks = () => import('@/components/user/MainTasks');
+const User_Main_Tasks = () => import('@/components/user/main/Tasks');
+const User_Main_Courses = () => import('@/components/user/main/Courses');
+const User_Main_Me = () => import('@/components/user/main/Me');
 
 Vue.use(Router)
 
@@ -23,6 +25,16 @@ export default new Router({
           name: 'User_Main_Tasks',
           path: 'tasks',
           component: User_Main_Tasks
+        },
+        {
+          name: 'User_Main_Courses',
+          path: 'courses',
+          component: User_Main_Courses
+        },
+        {
+          name: 'User_Main_Me',
+          path: 'me',
+          component: User_Main_Me
         },
       ]
     }

@@ -4,7 +4,7 @@ var Utils = {
     checkUser: function (id, token) {
         return new Promise(function (resolve, reject) {
             if (process.env.DBG_ENV) {
-                return resolve(0);
+                return resolve(1);
             }
 
             var sql = 'SELECT id FROM hw_user WHERE id = ? AND token = ?';
@@ -18,7 +18,7 @@ var Utils = {
                     }else{
                         var err = {
                             message: "No such user"
-                        }
+                        };
                         reject(err)
                     }
                 })
@@ -32,7 +32,7 @@ var Utils = {
     checkAdmin: function (id, token) {
         return new Promise(function (resolve, reject) {
             if (process.env.DBG_ENV) {
-                return resolve(0);
+                return resolve(1);
             }
 
             var sql = 'SELECT id FROM hw_user WHERE id = ? AND token = ?';
@@ -79,7 +79,7 @@ var Utils = {
     checkVolunteer: function (cid, uid, token) {
         return new Promise(function (resolve, reject) {
             if (process.env.DBG_ENV) {
-                return resolve(0);
+                return resolve(1);
             }
 
             var sql = 'SELECT id FROM hw_user WHERE id = ? AND token = ?';
@@ -99,7 +99,7 @@ var Utils = {
                                         }else{
                                             var err = {
                                                 message: "No Access"
-                                            }
+                                            };
                                             reject(err)
                                         }
                                     })
@@ -111,7 +111,7 @@ var Utils = {
                         }else{
                             var err = {
                                 message: "No such user"
-                            }
+                            };
                             reject(err)
                         }
                     })
@@ -122,6 +122,6 @@ var Utils = {
                 )
         })
     }
-}
+};
 
 module.exports = Utils;

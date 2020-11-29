@@ -4,19 +4,19 @@
       <van-tab title="Ongoing">
         <van-row style="margin-bottom: 15px" />
         <van-row v-for="task in ongoing_tasks" :key="task.id">
-          <task_item :task="task" />
+          <task_item :task="task" v-on:reloadData="loadData(active)" />
         </van-row>
       </van-tab>
       <van-tab title="Done">
         <van-row style="margin-bottom: 15px" />
         <van-row v-for="task in done_tasks" :key="task.id">
-          <task_item :task="task" />
+          <task_item :task="task" v-on:reloadData="loadData(active)" />
         </van-row>
       </van-tab>
       <van-tab title="Overdue">
         <van-row style="margin-bottom: 15px" />
         <van-row v-for="task in overdue_tasks" :key="task.id">
-          <task_item :task="task" />
+          <task_item :task="task" v-on:reloadData="loadData(active)" />
         </van-row>
       </van-tab>
     </van-tabs>
@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     onClickTab(name, title) {
-      this.loadData(name)
+      this.loadData(name);
     },
     loadData(type) {
       let self = this;
@@ -85,6 +85,11 @@ export default {
   },
   mounted() {
     this.loadData(0);
+
+    let self = this;
+    this.$root.eventHub.$on("follow-changed", () => {
+      self.loadData(self.active);
+    });
   },
 };
 </script>

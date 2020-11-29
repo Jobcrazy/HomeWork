@@ -162,38 +162,73 @@ router.post("/ongoing", function (req, res, next) {
             function (result) {
                 /*
                 e.g.:
-                SELECT hw_homework.id, hw_homework.cid, hw_homework.title,
-                hw_homework.description, hw_homework.due, hw_course.courseid,
-                hw_course.term, hw_course.instructor, hw_course.instructor,
-                hw_course.class, hw_course.logo
-                FROM hw_course JOIN (
-                    SELECT id, cid, title, description, due FROM hw_homework
-                    WHERE cid NOT IN (
-                        SELECT cid FROM hw_done
-                        WHERE hw_done.uid = 1 AND hw_done.kid=2
-                    )
-                ) as hw_homework ON
-                hw_homework.cid = hw_course.id
-                AND hw_homework.due >= '2020-09-30 23:59:59'
+                SELECT
+                    hw_homework.cid,
+                    hw_homework.title,
+                    hw_homework.description,
+                    hw_homework.due,
+                    hw_course.courseid,
+                    hw_course.term,
+                    hw_course.instructor,
+                    hw_course.instructor,
+                    hw_course.class,
+                    hw_course.logo
+                FROM
+                    hw_homework
+                LEFT JOIN hw_course ON hw_homework.cid = hw_course.id
+                WHERE
+                    hw_homework.cid IN(
+                    SELECT
+                        cid
+                    FROM
+                        hw_follow
+                    WHERE
+                        uid = 1
+                ) AND hw_homework.cid NOT IN(
+                    SELECT
+                        cid
+                    FROM
+                        hw_done
+                    WHERE
+                        uid = 1
+                ) AND hw_homework.due > CURRENT_TIME
                  */
                 var CurrentPage = req.body.page ? parseInt(req.body.page) : 1;
                 var NumbersPerPage = req.body.limit ? parseInt(req.body.limit) : 20;
                 var Start = CurrentPage * NumbersPerPage - NumbersPerPage;
-                var current_date_time = Utils.crtTimeFtt();
-                var sql = 'SELECT hw_homework.id, hw_homework.cid, hw_homework.title, \n' +
-                    'hw_homework.description, hw_homework.due, hw_course.courseid, \n' +
-                    'hw_course.term, hw_course.instructor, hw_course.instructor,\n' +
-                    'hw_course.class, hw_course.logo, hw_course.name \n' +
-                    'FROM hw_course JOIN ( \n' +
-                    '    SELECT id, cid, title, description, due FROM hw_homework \n' +
-                    '    WHERE cid NOT IN (\n' +
-                    '        SELECT cid FROM hw_done \n' +
-                    '        WHERE hw_done.uid = ?\n' +
-                    '    ) \n' +
-                    ') as hw_homework ON \n' +
-                    'hw_homework.cid = hw_course.id \n' +
-                    'AND hw_homework.due >= ? ORDER BY id desc limit ?,?';
-                var params = [req.body.uid, current_date_time, Start, NumbersPerPage];
+                var sql = 'SELECT\n' +
+                    '    hw_homework.id as kid,\n'+
+                    '    hw_homework.cid,\n' +
+                    '    hw_homework.title,\n' +
+                    '    hw_homework.description,\n' +
+                    '    hw_homework.due,\n' +
+                    '    hw_course.courseid,\n' +
+                    '    hw_course.term,\n' +
+                    '    hw_course.instructor,\n' +
+                    '    hw_course.instructor,\n' +
+                    '    hw_course.class,\n' +
+                    '    hw_course.logo\n' +
+                    'FROM\n' +
+                    '    hw_homework\n' +
+                    'LEFT JOIN hw_course ON hw_homework.cid = hw_course.id\n' +
+                    'WHERE\n' +
+                    '    hw_homework.cid IN(\n' +
+                    '    SELECT\n' +
+                    '        cid\n' +
+                    '    FROM\n' +
+                    '        hw_follow\n' +
+                    '    WHERE\n' +
+                    '        uid = ?\n' +
+                    ') AND hw_homework.cid NOT IN(\n' +
+                    '    SELECT\n' +
+                    '        cid\n' +
+                    '    FROM\n' +
+                    '        hw_done\n' +
+                    '    WHERE\n' +
+                    '        uid = ?\n' +
+                    ') AND hw_homework.due > CURRENT_TIME ' +
+                    'ORDER BY hw_homework.due desc limit ?,?';
+                var params = [req.body.uid, req.body.uid, Start, NumbersPerPage];
 
                 return QueryMySQL(sql, params);
             }
@@ -226,21 +261,40 @@ router.post("/finished", function (req, res, next) {
                 var CurrentPage = req.body.page ? parseInt(req.body.page) : 1;
                 var NumbersPerPage = req.body.limit ? parseInt(req.body.limit) : 20;
                 var Start = CurrentPage * NumbersPerPage - NumbersPerPage;
-                var current_date_time = Utils.crtTimeFtt();
-                var sql = 'SELECT hw_homework.id, hw_homework.cid, hw_homework.title, \n' +
-                    'hw_homework.description, hw_homework.due, hw_course.courseid, \n' +
-                    'hw_course.term, hw_course.instructor, hw_course.instructor,\n' +
-                    'hw_course.class, hw_course.logo, hw_course.name \n' +
-                    'FROM hw_course JOIN ( \n' +
-                    '    SELECT id, cid, title, description, due FROM hw_homework \n' +
-                    '    WHERE cid IN (\n' +
-                    '        SELECT cid FROM hw_done \n' +
-                    '        WHERE hw_done.uid = ?\n' +
-                    '    ) \n' +
-                    ') as hw_homework ON \n' +
-                    'hw_homework.cid = hw_course.id \n' +
-                    'ORDER BY id desc limit ?,?';
-                var params = [req.body.uid, Start, NumbersPerPage];
+                var sql = 'SELECT\n' +
+                    '    hw_homework.id as kid,\n'+
+                    '    hw_homework.cid,\n' +
+                    '    hw_homework.title,\n' +
+                    '    hw_homework.description,\n' +
+                    '    hw_homework.due,\n' +
+                    '    hw_course.courseid,\n' +
+                    '    hw_course.term,\n' +
+                    '    hw_course.instructor,\n' +
+                    '    hw_course.instructor,\n' +
+                    '    hw_course.class,\n' +
+                    '    1 as done,\n' +
+                    '    hw_course.logo\n' +
+                    'FROM\n' +
+                    '    hw_homework\n' +
+                    'LEFT JOIN hw_course ON hw_homework.cid = hw_course.id\n' +
+                    'WHERE\n' +
+                    '    hw_homework.cid IN(\n' +
+                    '    SELECT\n' +
+                    '        cid\n' +
+                    '    FROM\n' +
+                    '        hw_follow\n' +
+                    '    WHERE\n' +
+                    '        uid = ?\n' +
+                    ') AND hw_homework.cid IN(\n' +
+                    '    SELECT\n' +
+                    '        cid\n' +
+                    '    FROM\n' +
+                    '        hw_done\n' +
+                    '    WHERE\n' +
+                    '        uid = ?\n' +
+                    ') \n' +
+                    'ORDER BY hw_homework.due desc limit ?,?';
+                var params = [req.body.uid, req.body.uid, Start, NumbersPerPage];
 
                 return QueryMySQL(sql, params);
             }
@@ -268,21 +322,39 @@ router.post("/overdue", function (req, res, next) {
                 var CurrentPage = req.body.page ? parseInt(req.body.page) : 1;
                 var NumbersPerPage = req.body.limit ? parseInt(req.body.limit) : 20;
                 var Start = CurrentPage * NumbersPerPage - NumbersPerPage;
-                var current_date_time = Utils.crtTimeFtt();
-                var sql = 'SELECT hw_homework.id, hw_homework.cid, hw_homework.title, \n' +
-                    'hw_homework.description, hw_homework.due, hw_course.courseid, \n' +
-                    'hw_course.term, hw_course.instructor, hw_course.instructor,\n' +
-                    'hw_course.class, hw_course.logo, hw_course.name \n' +
-                    'FROM hw_course JOIN ( \n' +
-                    '    SELECT id, cid, title, description, due FROM hw_homework \n' +
-                    '    WHERE cid NOT IN (\n' +
-                    '        SELECT cid FROM hw_done \n' +
-                    '        WHERE hw_done.uid = ?\n' +
-                    '    ) \n' +
-                    ') as hw_homework ON \n' +
-                    'hw_homework.cid = hw_course.id \n' +
-                    'AND hw_homework.due <= ? ORDER BY id desc limit ?,?';
-                var params = [req.body.uid, current_date_time, Start, NumbersPerPage];
+                var sql = 'SELECT\n' +
+                    '    hw_homework.id as kid,\n'+
+                    '    hw_homework.cid,\n' +
+                    '    hw_homework.title,\n' +
+                    '    hw_homework.description,\n' +
+                    '    hw_homework.due,\n' +
+                    '    hw_course.courseid,\n' +
+                    '    hw_course.term,\n' +
+                    '    hw_course.instructor,\n' +
+                    '    hw_course.instructor,\n' +
+                    '    hw_course.class,\n' +
+                    '    hw_course.logo\n' +
+                    'FROM\n' +
+                    '    hw_homework\n' +
+                    'LEFT JOIN hw_course ON hw_homework.cid = hw_course.id\n' +
+                    'WHERE\n' +
+                    '    hw_homework.cid IN(\n' +
+                    '    SELECT\n' +
+                    '        cid\n' +
+                    '    FROM\n' +
+                    '        hw_follow\n' +
+                    '    WHERE\n' +
+                    '        uid = ?\n' +
+                    ') AND hw_homework.cid NOT IN(\n' +
+                    '    SELECT\n' +
+                    '        cid\n' +
+                    '    FROM\n' +
+                    '        hw_done\n' +
+                    '    WHERE\n' +
+                    '        uid = ?\n' +
+                    ') AND hw_homework.due < CURRENT_TIME ' +
+                    'ORDER BY hw_homework.due desc limit ?,?';
+                var params = [req.body.uid, req.body.uid, Start, NumbersPerPage];
 
                 return QueryMySQL(sql, params);
             }

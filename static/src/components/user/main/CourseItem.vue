@@ -85,6 +85,7 @@ export default {
             return self.$toast.fail(res.data.message);
           }
           self.course.followed = 1;
+          this.$root.eventHub.$emit('follow-changed');
           self.$toast.clear();
         })
         .catch(function (error) {
@@ -113,7 +114,8 @@ export default {
           if (0 != res.data.code) {
             return self.$toast.fail(res.data.message);
           }
-          self.course.followed = 0;
+          self.course.followed = 0;          
+          this.$root.eventHub.$emit('follow-changed');
           self.$toast.clear();
         })
         .catch(function (error) {

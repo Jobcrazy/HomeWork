@@ -17,7 +17,7 @@
       <van-col span="1" />
     </van-row>
     <van-cell-group>
-      <van-cell title="My Courses" is-link icon="newspaper-o" />
+      <van-cell title="My Courses" is-link icon="newspaper-o" @click="onMyCourses"/>
       <van-cell title="Create a Task" is-link icon="records" />
       <van-cell title="Manage Courses" is-link icon="apps-o" />
       <van-cell title="Manage Volunteers" is-link icon="friends-o" />
@@ -37,6 +37,13 @@ export default {
         default_avatar: require("@/assets/default_avatar.png"),
       },
     };
+  },
+  methods:{
+    onMyCourses(){
+      this.$router.push({
+        name: "User_Me_Courses",
+      });
+    }
   },
   mounted() {
     let self = this;

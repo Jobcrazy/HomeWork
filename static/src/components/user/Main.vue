@@ -3,7 +3,6 @@
     <keep-alive> <router-view /> </keep-alive>
     <van-tabbar
       v-model="active"
-
     >
       <van-tabbar-item icon="records" replace to="/user/main/tasks">
         Tasks

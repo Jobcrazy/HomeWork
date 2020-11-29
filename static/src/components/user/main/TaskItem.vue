@@ -19,7 +19,7 @@
         </van-row>
       </van-col>
       <van-col span="4">
-        <van-row class="term" style="margin-bottom:5px;"></van-row>
+        <van-row class="term" style="margin-bottom: 5px"></van-row>
         <van-row class="follow">
           <van-button
             id="login"
@@ -27,6 +27,7 @@
             size="mini"
             v-if="!task.done"
             style="width: 55px"
+            @click="onDone"
           >
             Done
           </van-button>
@@ -36,8 +37,9 @@
             size="mini"
             v-if="task.done"
             style="width: 55px"
+            @click="onUndo"
           >
-            Undone
+            Undo
           </van-button>
         </van-row>
       </van-col>
@@ -60,6 +62,66 @@ export default {
     return {};
   },
   methods: {
+    onUndo() {
+      let self = this;
+
+      self.$toast.loading({
+        message: "Loading...",
+        forbidClick: true,
+      });
+
+      this.$axios({
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        url: "/homework/unfinished",
+        data: {
+          uid: self.$store.state.uid,
+          token: self.$store.state.token,
+          cid: this.task.cid,
+          kid: this.task.kid,
+        },
+      })
+        .then((res) => {
+          if (0 != res.data.code) {
+            console.log(res.data);
+            return self.$toast.fail(res.data.message);
+          }
+          this.$emit("reloadData");
+        })
+        .catch(function (error) {
+          self.$toast.fail(error);
+        });
+    },
+    onDone() {
+      let self = this;
+
+      self.$toast.loading({
+        message: "Loading...",
+        forbidClick: true,
+      });
+
+      this.$axios({
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        url: "/homework/done",
+        data: {
+          uid: self.$store.state.uid,
+          token: self.$store.state.token,
+          cid: this.task.cid,
+          kid: this.task.kid,
+        },
+      })
+        .then((res) => {
+          if (0 != res.data.code) {
+            console.log(res.data);
+            return self.$toast.fail(res.data.message);
+          }
+          this.$emit("reloadData");
+        })
+        .catch(function (error) {
+          self.$toast.fail(error);
+        });
+    },
   },
 };
 </script>

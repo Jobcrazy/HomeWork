@@ -226,7 +226,7 @@ router.post("/ongoing", function (req, res, next) {
                     '        hw_done\n' +
                     '    WHERE\n' +
                     '        uid = ?\n' +
-                    ') AND hw_homework.due > CURRENT_TIME ' +
+                    ') AND hw_homework.due > CURRENT_TIMESTAMP ' +
                     'ORDER BY hw_homework.due desc limit ?,?';
                 var params = [req.body.uid, req.body.uid, Start, NumbersPerPage];
 
@@ -302,6 +302,12 @@ router.post("/finished", function (req, res, next) {
         )
         .then(
             function (result) {
+                for (let n = 0; n < result.length; ++n) {
+                    result[n].due = new Date(+result[n].due /* + 8 * 3600 * 1000 */)
+                        .toISOString().replace(/T/g, ' ')
+                        .replace(/\.[\d]{3}Z/, '')
+                }
+
                 var ret_obj = {
                     code: error_code.error_success,
                     data:result
@@ -354,7 +360,7 @@ router.post("/overdue", function (req, res, next) {
                     '        hw_done\n' +
                     '    WHERE\n' +
                     '        uid = ?\n' +
-                    ') AND hw_homework.due < CURRENT_TIME ' +
+                    ') AND hw_homework.due < CURRENT_TIMESTAMP ' +
                     'ORDER BY hw_homework.due desc limit ?,?';
                 var params = [req.body.uid, req.body.uid, Start, NumbersPerPage];
 
@@ -363,6 +369,12 @@ router.post("/overdue", function (req, res, next) {
         )
         .then(
             function (result) {
+                for (let n = 0; n < result.length; ++n) {
+                    result[n].due = new Date(+result[n].due /* + 8 * 3600 * 1000 */)
+                        .toISOString().replace(/T/g, ' ')
+                        .replace(/\.[\d]{3}Z/, '')
+                }
+
                 var ret_obj = {
                     code: error_code.error_success,
                     data:result

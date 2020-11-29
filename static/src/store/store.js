@@ -5,13 +5,13 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    uid: 1,
-    token: "4e13398e7899657c97fd500953f47e8f"
+    uid: 0,
+    token: ""
   },
   mutations: {
-    setToken (state, uid, token) {
-      state.uid = uid;
-      state.token = token;
+    setToken (state, data) {
+      state.uid = data.uid;
+      state.token = data.token;
     }
   }
 })

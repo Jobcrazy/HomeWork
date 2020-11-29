@@ -34,7 +34,7 @@ export default {
   methods: {
     login(profile) {
       // Login to Homework
-      console.log(profile)
+      console.log(profile);
       let self = this;
       self.$toast.loading({
         message: "Loading...",
@@ -57,6 +57,8 @@ export default {
           if (0 != res.data.code) {
             return self.$toast.fail(res.data.message);
           }
+          self.$store.commit("setToken", res.data);
+          console.log(self.$store.state);
           this.$router.push({ name: "User_Main", query: { id: res.data.id } });
         })
         .catch(function (error) {
@@ -82,14 +84,16 @@ export default {
   },
   mounted() {
     // Init Google Login Button
-    this.auth2 = gapi.auth2.init({
-      client_id:
-        "123727176263-q22g4po6p3q2165ht5fsco8957179j8v.apps.googleusercontent.com",
-      cookiepolicy: "single_host_origin",
-      scope: "profile",
+    let self = this;
+    gapi.load("auth2", function () {
+      // Retrieve the singleton for the GoogleAuth library and set up the client.
+      self.auth2 = gapi.auth2.init({
+        client_id:
+          "123727176263-q22g4po6p3q2165ht5fsco8957179j8v.apps.googleusercontent.com",
+        cookiepolicy: "single_host_origin",
+      });
+      self.attachSignin(document.getElementById("login"));
     });
-    var googleUser = {};
-    this.attachSignin(document.getElementById("login"));
   },
 };
 </script>

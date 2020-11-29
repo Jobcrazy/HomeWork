@@ -206,6 +206,7 @@ router.post("/ongoing", function (req, res, next) {
                     '    hw_course.instructor,\n' +
                     '    hw_course.instructor,\n' +
                     '    hw_course.class,\n' +
+                    '    hw_course.name,\n' +
                     '    hw_course.logo\n' +
                     'FROM\n' +
                     '    hw_homework\n' +
@@ -271,6 +272,7 @@ router.post("/finished", function (req, res, next) {
                     '    hw_course.instructor,\n' +
                     '    hw_course.instructor,\n' +
                     '    hw_course.class,\n' +
+                    '    hw_course.name,\n' +
                     '    1 as done,\n' +
                     '    hw_course.logo\n' +
                     'FROM\n' +
@@ -332,6 +334,7 @@ router.post("/overdue", function (req, res, next) {
                     '    hw_course.instructor,\n' +
                     '    hw_course.instructor,\n' +
                     '    hw_course.class,\n' +
+                    '    hw_course.name,\n' +
                     '    hw_course.logo\n' +
                     'FROM\n' +
                     '    hw_homework\n' +

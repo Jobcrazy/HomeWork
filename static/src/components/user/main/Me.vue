@@ -24,9 +24,27 @@
         @click="onMyCourses"
         label="Manage My Courses"
       />
-      <van-cell title="Create a Task" is-link icon="records" label="Volunteers Only"/>
-      <van-cell title="Manage Courses" is-link icon="apps-o" label="Administrators Only"/>
-      <van-cell title="Manage Volunteers" is-link icon="friends-o" label="Administrators Only"/>
+      <van-cell
+        title="Create a Task"
+        is-link
+        icon="records"
+        label="Volunteers Only"
+        @click="onCreateTask"
+      />
+      <van-cell
+        title="Manage Courses"
+        is-link
+        icon="apps-o"
+        label="Administrators Only"
+        @click="onUnderConstruction"
+      />
+      <van-cell
+        title="Manage Volunteers"
+        is-link
+        icon="friends-o"
+        label="Administrators Only"
+        @click="onUnderConstruction"
+      />
     </van-cell-group>
   </div>
 </template>
@@ -49,6 +67,14 @@ export default {
       this.$router.push({
         name: "User_Me_Courses",
       });
+    },
+    onCreateTask() {
+      this.$router.push({
+        name: "User_Me_CreateTask",
+      });
+    },
+    onUnderConstruction() {
+      this.$toast("Under Construction.\n\nPlease Come Back Later.");
     },
   },
   mounted() {

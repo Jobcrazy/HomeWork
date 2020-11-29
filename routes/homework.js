@@ -12,8 +12,7 @@ router.post("/add", function (req, res, next) {
             function (result) {
                 var sql = 'INSERT INTO hw_homework(`cid`, `title`, ' +
                     '`description`, `due`) VALUES(?, ?, ?, ?)';
-                var params = [req.body.cid, req.body.title, req.body.description,
-                    req.body.due];
+                var params = [req.body.cid, req.body.title, "", req.body.due];
 
                 return QueryMySQL(sql, params);
             }

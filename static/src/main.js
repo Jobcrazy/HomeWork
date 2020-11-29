@@ -6,8 +6,10 @@ import App from './App'
 import router from './router'
 import Vant from 'vant';
 import { Lazyload } from 'vant';
+import { Locale } from 'vant';
 import 'vant/lib/index.css';
 import 'vant/lib/icon/local.css'
+import enUS from 'vant/es/locale/lang/en-US';
 import axios from 'axios'
 import store from './store/store'
 
@@ -16,6 +18,7 @@ Vue.use(Vant);
 Vue.use(Lazyload, {
   lazyComponent: true,
 });
+Locale.use('en-US', enUS);
 
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios;

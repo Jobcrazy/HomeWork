@@ -38,7 +38,7 @@ router.post("/add", function (req, res, next) {
                     var ret_obj = {
                         code: error_code.error_success,
                         id: result.insertId
-                    }
+                    };
                     res.send(JSON.stringify(ret_obj))
                 }
             }
@@ -48,7 +48,7 @@ router.post("/add", function (req, res, next) {
                 Utils.SendErrJson(res, err)
             }
         )
-})
+});
 
 router.post("/del", function (req, res, next) {
     Access.checkAdmin(req.body.uid, req.body.token)
@@ -64,7 +64,7 @@ router.post("/del", function (req, res, next) {
             function (result) {
                 var ret_obj = {
                     code: error_code.error_success
-                }
+                };
                 res.send(JSON.stringify(ret_obj))
             }
         )
@@ -73,7 +73,7 @@ router.post("/del", function (req, res, next) {
                 Utils.SendErrJson(res, err)
             }
         )
-})
+});
 
 router.post("/get", function (req, res, next) {
     Access.checkAdmin(req.body.uid, req.body.token)
@@ -90,7 +90,7 @@ router.post("/get", function (req, res, next) {
                 var ret_obj = {
                     code: error_code.error_success,
                     data: result
-                }
+                };
                 res.send(JSON.stringify(ret_obj))
             }
         )
@@ -99,6 +99,6 @@ router.post("/get", function (req, res, next) {
                 Utils.SendErrJson(res, err)
             }
         )
-})
+});
 
 module.exports = router;

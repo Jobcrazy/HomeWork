@@ -32,7 +32,7 @@ router.post("/add", function (req, res, next) {
                 Utils.SendErrJson(res, err);
             }
         )
-})
+});
 
 router.post("/update", function (req, res, next) {
     Access.checkVolunteer(req.body.cid, req.body.uid, req.body.token)
@@ -60,7 +60,7 @@ router.post("/update", function (req, res, next) {
                 Utils.SendErrJson(res, err);
             }
         )
-})
+});
 
 router.post("/del", function (req, res, next) {
     Access.checkVolunteer(req.body.cid, req.body.uid, req.body.token)

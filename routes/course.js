@@ -120,7 +120,7 @@ router.post("/search", function (req, res, next) {
                 Utils.SendErrJson(res, err)
             }
         )
-})
+});
 
 router.post("/list", function (req, res, next) {
     let uid = req.body.uid ? req.body.uid : 0;
@@ -163,6 +163,34 @@ router.post("/list", function (req, res, next) {
             }
         )
 })
+
+router.post("/list/my", function (req, res, next) {
+    let uid = req.body.uid ? req.body.uid : 0;
+    var CurrentPage = req.body.page ? parseInt(req.body.page) : 1;
+    var NumbersPerPage = req.body.limit ? parseInt(req.body.limit) : 20;
+    var Start = CurrentPage * NumbersPerPage - NumbersPerPage;
+
+    var sql = 'SELECT id, courseid, term, instructor, class, logo, NAME FROM hw_course ' +
+        'WHERE id IN( SELECT cid from hw_follow WHERE uid = ?) ' +
+        'ORDER BY id desc limit ?,?';
+    var params = [uid, Start, NumbersPerPage];
+
+    QueryMySQL(sql, params)
+        .then(
+            function (result) {
+                var ret_obj = {
+                    code: error_code.error_success,
+                    data: result,
+                };
+                res.send(JSON.stringify(ret_obj))
+            }
+        )
+        .catch(
+            function (err) {
+                Utils.SendErrJson(res, err)
+            }
+        )
+});
 
 router.post("/follow", function (req, res, next) {
     Access.checkUser(req.body.uid, req.body.token)

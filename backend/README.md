@@ -1,5 +1,5 @@
 ## Introduction
-Backend source code for BCIT COMM 1800 (Group E)
+Backend source code for BCIT COMM 1800 (Group E).
 
 ## Develop Environment
 * **IDE**: *Webstorm 2018.3.5*

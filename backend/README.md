@@ -54,9 +54,9 @@ Backend source code for BCIT COMM 1800 (Group E).
     "data": [
         {
             "id": 1,
-            "fname": "刘航",
-            "gname": "航",
-            "xname": "刘",
+            "fname": "James Liu",
+            "gname": "James",
+            "xname": "Liu",
             "head": "https://lh5.googleusercontent.com/-WmSZDdMVzsg/AAAAAAAAAAI/AAAAAAAAAAA/AMZuucmhRt5YTKrH8CXq2eFAEeFcnis2JA/s96-c/photo.jpg"
         }
     ]
